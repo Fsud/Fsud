@@ -151,6 +151,107 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-map" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/01/map/">java中的map</a>
+    </h1>
+  
+
+        
+        <a href="/2017/10/01/map/" class="archive-article-date">
+  	<time datetime="2017-09-30T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>概述</strong><br>准确的说，hashMap其实是一个key-value集合。并且一个key-value是由一个Map.Entry维护的，而Map.Entry又是由一个数组维护的。这个数组的每个位置称为一个“桶”。桶中存放了一个链表或者红黑树。<br>数组的大小(Capacity)可以在创建HashMap的时候指定，默认为16。<br>负载因子(loadFactor)：loadFactor*Capacity &gt; 现有容量时，hashMap就会进行rehash。默认为0.75。reHash的时候，会把Capacity扩大一倍，同时将所有Entry重新放置，所以非常消耗性能。</p>
+<p><strong>迭代</strong><br>经验证，迭代map效率最高的方式是entrySet的iterator方式。因为如果使用keySet迭代，还需要调用get方法。get方法再次执行了遍历。</p>
+<p><strong>哈希冲突</strong><br>Entry在这个数组中的位置是怎样确定的呢？通过hash函数，hash(key)就能得到对应的位置了。<br>在之前的jdk版本中，使用了hash&amp;(length-1)。由于length是2的整数倍，这就起到的只去后几位的作用。<br>但是，hash算法的后几位的分布不是松散的，这会导致严重的碰撞。扰动函数的意思是，将hash的前16位（一半的位数）与后16位抑或（^）,再与length-1做与操作。这样能显著的降低碰撞的几率（因为后16位被加入了前16位的信息）<br>HashMap的key除了基本类型，也可以使用自定义类型。这同样需要自己覆写类型的hashCode和equals方法。</p>
+<hr>
+<p><strong>HashMap的亲朋</strong><br><strong><em>TreeMap</em></strong><br>SortedMap接口基于红黑树的实现，是自排序的（默认基于自然顺序），我们可以通过在创建TreeMap时传入自定义的Comperator实现需要的排序方式。<br><strong><em>Hashtable</em></strong><br>线程安全，但是不接受value为null。<br><strong><em>LinkedHashMap</em></strong><br>有顺序的hashMap，在迭代时，会根据add顺序<br>内部维护着一个双向循环链表。本质是Entry除了保存当前对象的引用外，还保存了前后两个元素的引用。<br><strong><em>ListMultimap</em></strong><br>实现了一个键与多个值进行映射，即<code>Map&lt;K,List&lt;V&gt;&gt;</code><br>下面的表格是Guava中为我们扩展的几种map。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">实现</th>
+<th style="text-align:left">键行为类似</th>
+<th style="text-align:left">值行为类似</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">ArrayListMultimap</td>
+<td style="text-align:left">HashMap</td>
+<td style="text-align:left">ArrayList</td>
+</tr>
+<tr>
+<td style="text-align:left">HashMultimap</td>
+<td style="text-align:left">HashMap</td>
+<td style="text-align:left">HashSet</td>
+</tr>
+<tr>
+<td style="text-align:left">LinkedListMultimap</td>
+<td style="text-align:left">LinkedHashMap</td>
+<td style="text-align:left">LinkedList</td>
+</tr>
+<tr>
+<td style="text-align:left">LinkedHashMultimap</td>
+<td style="text-align:left">LinkedHashMap</td>
+<td style="text-align:left">LinkedHashMap</td>
+</tr>
+</tbody>
+</table>
+<p>其中，LinkedListMultimap 我使用较多，其实就是一个键-值都有顺序的Multimap。在迭代时，使用map.entries()</p>
+<hr>
+<p><strong>CurrentHashMap</strong></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/10/01/map/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-hello-hexo" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -228,7 +329,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2017 sudden
+    		&copy; 2018 sudden
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
