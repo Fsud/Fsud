@@ -6,11 +6,11 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>MoonStone</title>
+  <title>Archives: 2017/11 | MoonStone</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta property="og:type" content="website">
 <meta property="og:title" content="MoonStone">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:url" content="http://yoursite.com/archives/2017/11/index.html">
 <meta property="og:site_name" content="MoonStone">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MoonStone">
@@ -151,244 +151,47 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-factoryPartten" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
+  
     
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/11/02/factoryPartten/">怎样选择工厂模式</a>
-    </h1>
-  
-
-        
-        <a href="/2017/11/02/factoryPartten/" class="archive-article-date">
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2017" class="archive-year">2017</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2017/11/02/factoryPartten/" class="archive-article-date">
   	<time datetime="2017-11-01T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-02</time>
 </a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="怎样选择工厂模式"><a href="#怎样选择工厂模式" class="headerlink" title="怎样选择工厂模式"></a>怎样选择工厂模式</h1><hr>
-<p>工厂模式应该平时开发时最常使用的设计模式之一。为什么要使用工厂模式？最普遍的情况下，我们使用new关键字创建对象。但是，我们需要记忆并暴露Class的名称；而且某些对象是高度相似的，只有某些状态不同，可以将其抽象为一系列产品。<br>是的，作为一个创建型模式，在面向对象编程中，它帮助我们管理对象的创建。但是工厂模式其实是有三种变体的。该怎样选用最适合的工厂模式呢？下面逐一介绍这三种工厂模式。</p>
-<h2 id="简单工厂"><a href="#简单工厂" class="headerlink" title="简单工厂"></a>简单工厂</h2><p>简单工厂模式，又称静态工厂模式，是工厂模式中最简单常用的。<br>简单工厂有三个成员：抽象产品，具体产品，工厂类。<br>其中的“工厂类”是一个大一统的工厂，所有对象创建逻辑都在工厂类中。如果要新增一个产品，必须要修改工厂类，这就违反了“开闭原则”</p>
-<h2 id="工厂方法"><a href="#工厂方法" class="headerlink" title="工厂方法"></a>工厂方法</h2><p>工厂方法模式将工厂进行了抽象，工厂变成了可扩展的，并且将创建产品的行为放在了具体工厂中。<br>工厂方法包含四个成员：抽象产品、具体产品、抽象工厂、具体工厂。<br><img src="/img/FactoryMethod.jpg" alt="工厂方法uml图"><br>工厂方法模式符合开闭原则，有两个显著优点：增加产品时，无需修改抽象产品和抽象工厂；创建产品的逻辑封装在了具体工厂中。<br>缺点也显而易见：随着产品类型的增多，会出现类数量的膨胀。</p>
-<h2 id="抽象工厂"><a href="#抽象工厂" class="headerlink" title="抽象工厂"></a>抽象工厂</h2><p>抽象工厂涉及到<strong>产品等级</strong>与<strong>产品族</strong>这两个概念。<br>产品等级即产品的继承结构。举例：手机是父类，小米手机、华为手机是子类。<br>产品族即属于同一工厂生产的不同产品等级的产品。如：小米工厂可以生产小米手机、小米pad等。<br>抽象工厂就是这这种情况下使用的，即一个工厂不再只创建一个产品，而是创建一个产品族。<br>这样的好处是显而易见的。当我们需要扩展产品等级结构时（比如新加一个三星工厂）将非常简单，不用修改之前的代码；但是，如果我们想扩展产品族，就比较麻烦了，需要在每个工厂中添加产品族。这体现了抽象工厂对“开闭原则”的支持呈现倾斜性。</p>
-<hr>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>简单总结下，当我们的工厂不容易改变，则使用简单工厂即可。当工厂经常需要修改扩充，则考虑使用工厂方法，只需新建或修改一个具体工厂和具体产品即可。<br>当我们需要创建的产品涉及到产品族的概念，就需要考虑引入抽象工厂方法了。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/11/02/factoryPartten/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
         </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-map" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+    	 
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/01/map/">java中的map</a>
+      <a class="archive-article-title" href="/2017/11/02/factoryPartten/">怎样选择工厂模式</a>
     </h1>
   
 
-        
-        <a href="/2017/10/01/map/" class="archive-article-date">
-  	<time datetime="2017-09-30T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><strong>概述</strong><br>准确的说，hashMap其实是一个key-value集合。并且一个key-value是由一个Map.Entry维护的，而Map.Entry又是由一个数组维护的。这个数组的每个位置称为一个“桶”。桶中存放了一个链表或者红黑树。<br>数组的大小(Capacity)可以在创建HashMap的时候指定，默认为16。<br>负载因子(loadFactor)：loadFactor*Capacity &gt; 现有容量时，hashMap就会进行rehash。默认为0.75。reHash的时候，会把Capacity扩大一倍，同时将所有Entry重新放置，所以非常消耗性能。</p>
-<p><strong>迭代</strong><br>经验证，迭代map效率最高的方式是entrySet的iterator方式。因为如果使用keySet迭代，还需要调用get方法。get方法再次执行了遍历。</p>
-<p><strong>哈希冲突</strong><br>Entry在这个数组中的位置是怎样确定的呢？通过hash函数，hash(key)就能得到对应的位置了。<br>在之前的jdk版本中，使用了hash&amp;(length-1)。由于length是2的整数倍，这就起到的只去后几位的作用。<br>但是，hash算法的后几位的分布不是松散的，这会导致严重的碰撞。扰动函数的意思是，将hash的前16位（一半的位数）与后16位抑或（^）,再与length-1做与操作。这样能显著的降低碰撞的几率（因为后16位被加入了前16位的信息）<br>HashMap的key除了基本类型，也可以使用自定义类型。这同样需要自己覆写类型的hashCode和equals方法。</p>
-<hr>
-<p><strong>HashMap的亲朋</strong><br><strong><em>TreeMap</em></strong><br>SortedMap接口基于红黑树的实现，是自排序的（默认基于自然顺序），我们可以通过在创建TreeMap时传入自定义的Comperator实现需要的排序方式。<br><strong><em>Hashtable</em></strong><br>线程安全，但是不接受value为null。<br><strong><em>LinkedHashMap</em></strong><br>有顺序的hashMap，在迭代时，会根据add顺序<br>内部维护着一个双向循环链表。本质是Entry除了保存当前对象的引用外，还保存了前后两个元素的引用。<br><strong><em>ListMultimap</em></strong><br>实现了一个键与多个值进行映射，即<code>Map&lt;K,List&lt;V&gt;&gt;</code><br>下面的表格是Guava中为我们扩展的几种map。</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">实现</th>
-<th style="text-align:left">键行为类似</th>
-<th style="text-align:left">值行为类似</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">ArrayListMultimap</td>
-<td style="text-align:left">HashMap</td>
-<td style="text-align:left">ArrayList</td>
-</tr>
-<tr>
-<td style="text-align:left">HashMultimap</td>
-<td style="text-align:left">HashMap</td>
-<td style="text-align:left">HashSet</td>
-</tr>
-<tr>
-<td style="text-align:left">LinkedListMultimap</td>
-<td style="text-align:left">LinkedHashMap</td>
-<td style="text-align:left">LinkedList</td>
-</tr>
-<tr>
-<td style="text-align:left">LinkedHashMultimap</td>
-<td style="text-align:left">LinkedHashMap</td>
-<td style="text-align:left">LinkedHashMap</td>
-</tr>
-</tbody>
-</table>
-<p>其中，LinkedListMultimap 我使用较多，其实就是一个键-值都有顺序的Multimap。在迭代时，使用map.entries()</p>
-<hr>
-<p><strong>CurrentHashMap</strong></p>
+        <div class="article-info info-on-right">
+          
+          
 
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/01/map/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
+        </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
-    <article id="post-hello-hexo" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
+  
+    </div></section>
+  
+
     
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/10/hello-hexo/">好好写博客</a>
-    </h1>
-  
-
-        
-        <a href="/2017/09/10/hello-hexo/" class="archive-article-date">
-  	<time datetime="2017-09-10T14:38:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>这不是我创建的第一个博客空间。大四的时候开始使用csdn，写了一点点博客，后来就因为开始实习而放弃了。现在想想主要还是跟风而去写，而没有想好为什么要写。</p>
-<p>这一年多，基本上所有落笔的东西都写在了<a href="http://wiz.cn" target="_blank" rel="external">为知笔记</a>里，全是技术书的知识摘录。如果把学技术比作做菜，做这种摘录好像只是准备食材，离真正融会贯通差的还太多。而且，这种摘录到几个月之后再看，就像是被晒干的蔬菜一样，很多知识点由于没了语境，竟然变得难以理解，这样作为积累的效果就不太好。</p>
-<p>所以，写博客是step2。对比，归纳，整合，到以俯视的视角看各种技术的方方面面，这是博客的价值。</p>
-<p>此外，这里还会写一写思考成果与读书感悟，不限于技术。</p>
-<p><em>贵在坚持</em></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/09/10/hello-hexo/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-  
 
 
           </div>
@@ -410,9 +213,9 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
+		isHome: false,
 		isPost: false,
-		isArchive: false,
+		isArchive: true,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

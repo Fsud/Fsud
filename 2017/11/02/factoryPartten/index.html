@@ -6,14 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>MoonStone</title>
+  <title>怎样选择工厂模式 | MoonStone</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="MoonStone">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="怎样选择工厂模式 工厂模式应该平时开发时最常使用的设计模式之一。为什么要使用工厂模式？最普遍的情况下，我们使用new关键字创建对象。但是，我们需要记忆并暴露Class的名称；而且某些对象是高度相似的，只有某些状态不同，可以将其抽象为一系列产品。是的，作为一个创建型模式，在面向对象编程中，它帮助我们管理对象的创建。但是工厂模式其实是有三种变体的。该怎样选用最适合的工厂模式呢？下面逐一介绍这三种工厂模">
+<meta property="og:type" content="article">
+<meta property="og:title" content="怎样选择工厂模式">
+<meta property="og:url" content="http://yoursite.com/2017/11/02/factoryPartten/index.html">
 <meta property="og:site_name" content="MoonStone">
+<meta property="og:description" content="怎样选择工厂模式 工厂模式应该平时开发时最常使用的设计模式之一。为什么要使用工厂模式？最普遍的情况下，我们使用new关键字创建对象。但是，我们需要记忆并暴露Class的名称；而且某些对象是高度相似的，只有某些状态不同，可以将其抽象为一系列产品。是的，作为一个创建型模式，在面向对象编程中，它帮助我们管理对象的创建。但是工厂模式其实是有三种变体的。该怎样选用最适合的工厂模式呢？下面逐一介绍这三种工厂模">
+<meta property="og:image" content="http://yoursite.com/img/FactoryMethod.jpg">
+<meta property="og:updated_time" content="2018-02-22T14:51:59.024Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MoonStone">
+<meta name="twitter:title" content="怎样选择工厂模式">
+<meta name="twitter:description" content="怎样选择工厂模式 工厂模式应该平时开发时最常使用的设计模式之一。为什么要使用工厂模式？最普遍的情况下，我们使用new关键字创建对象。但是，我们需要记忆并暴露Class的名称；而且某些对象是高度相似的，只有某些状态不同，可以将其抽象为一系列产品。是的，作为一个创建型模式，在面向对象编程中，它帮助我们管理对象的创建。但是工厂模式其实是有三种变体的。该怎样选用最适合的工厂模式呢？下面逐一介绍这三种工厂模">
+<meta name="twitter:image" content="http://yoursite.com/img/FactoryMethod.jpg">
   
     <link rel="alternative" href="/atom.xml" title="MoonStone" type="application/atom+xml">
   
@@ -149,16 +155,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-factoryPartten" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-factoryPartten" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/11/02/factoryPartten/">怎样选择工厂模式</a>
+    <h1 class="article-title" itemprop="name">
+      怎样选择工厂模式
     </h1>
   
 
@@ -182,6 +186,27 @@
       
 
       
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
     </div>
     <div class="article-info article-info-index">
       
@@ -189,16 +214,75 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/11/02/factoryPartten/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/11/02/factoryPartten/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2017/10/01/map/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">java中的map</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -218,176 +302,14 @@
 
 
 
-
   
-    <article id="post-map" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/01/map/">java中的map</a>
-    </h1>
   
 
-        
-        <a href="/2017/10/01/map/" class="archive-article-date">
-  	<time datetime="2017-09-30T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><strong>概述</strong><br>准确的说，hashMap其实是一个key-value集合。并且一个key-value是由一个Map.Entry维护的，而Map.Entry又是由一个数组维护的。这个数组的每个位置称为一个“桶”。桶中存放了一个链表或者红黑树。<br>数组的大小(Capacity)可以在创建HashMap的时候指定，默认为16。<br>负载因子(loadFactor)：loadFactor*Capacity &gt; 现有容量时，hashMap就会进行rehash。默认为0.75。reHash的时候，会把Capacity扩大一倍，同时将所有Entry重新放置，所以非常消耗性能。</p>
-<p><strong>迭代</strong><br>经验证，迭代map效率最高的方式是entrySet的iterator方式。因为如果使用keySet迭代，还需要调用get方法。get方法再次执行了遍历。</p>
-<p><strong>哈希冲突</strong><br>Entry在这个数组中的位置是怎样确定的呢？通过hash函数，hash(key)就能得到对应的位置了。<br>在之前的jdk版本中，使用了hash&amp;(length-1)。由于length是2的整数倍，这就起到的只去后几位的作用。<br>但是，hash算法的后几位的分布不是松散的，这会导致严重的碰撞。扰动函数的意思是，将hash的前16位（一半的位数）与后16位抑或（^）,再与length-1做与操作。这样能显著的降低碰撞的几率（因为后16位被加入了前16位的信息）<br>HashMap的key除了基本类型，也可以使用自定义类型。这同样需要自己覆写类型的hashCode和equals方法。</p>
-<hr>
-<p><strong>HashMap的亲朋</strong><br><strong><em>TreeMap</em></strong><br>SortedMap接口基于红黑树的实现，是自排序的（默认基于自然顺序），我们可以通过在创建TreeMap时传入自定义的Comperator实现需要的排序方式。<br><strong><em>Hashtable</em></strong><br>线程安全，但是不接受value为null。<br><strong><em>LinkedHashMap</em></strong><br>有顺序的hashMap，在迭代时，会根据add顺序<br>内部维护着一个双向循环链表。本质是Entry除了保存当前对象的引用外，还保存了前后两个元素的引用。<br><strong><em>ListMultimap</em></strong><br>实现了一个键与多个值进行映射，即<code>Map&lt;K,List&lt;V&gt;&gt;</code><br>下面的表格是Guava中为我们扩展的几种map。</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">实现</th>
-<th style="text-align:left">键行为类似</th>
-<th style="text-align:left">值行为类似</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">ArrayListMultimap</td>
-<td style="text-align:left">HashMap</td>
-<td style="text-align:left">ArrayList</td>
-</tr>
-<tr>
-<td style="text-align:left">HashMultimap</td>
-<td style="text-align:left">HashMap</td>
-<td style="text-align:left">HashSet</td>
-</tr>
-<tr>
-<td style="text-align:left">LinkedListMultimap</td>
-<td style="text-align:left">LinkedHashMap</td>
-<td style="text-align:left">LinkedList</td>
-</tr>
-<tr>
-<td style="text-align:left">LinkedHashMultimap</td>
-<td style="text-align:left">LinkedHashMap</td>
-<td style="text-align:left">LinkedHashMap</td>
-</tr>
-</tbody>
-</table>
-<p>其中，LinkedListMultimap 我使用较多，其实就是一个键-值都有顺序的Multimap。在迭代时，使用map.entries()</p>
-<hr>
-<p><strong>CurrentHashMap</strong></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/01/map/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-hello-hexo" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/10/hello-hexo/">好好写博客</a>
-    </h1>
   
 
-        
-        <a href="/2017/09/10/hello-hexo/" class="archive-article-date">
-  	<time datetime="2017-09-10T14:38:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>这不是我创建的第一个博客空间。大四的时候开始使用csdn，写了一点点博客，后来就因为开始实习而放弃了。现在想想主要还是跟风而去写，而没有想好为什么要写。</p>
-<p>这一年多，基本上所有落笔的东西都写在了<a href="http://wiz.cn" target="_blank" rel="external">为知笔记</a>里，全是技术书的知识摘录。如果把学技术比作做菜，做这种摘录好像只是准备食材，离真正融会贯通差的还太多。而且，这种摘录到几个月之后再看，就像是被晒干的蔬菜一样，很多知识点由于没了语境，竟然变得难以理解，这样作为积累的效果就不太好。</p>
-<p>所以，写博客是step2。对比，归纳，整合，到以俯视的视角看各种技术的方方面面，这是博客的价值。</p>
-<p>此外，这里还会写一写思考成果与读书感悟，不限于技术。</p>
-<p><em>贵在坚持</em></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/09/10/hello-hexo/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
+
   
 
 
@@ -410,8 +332,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
