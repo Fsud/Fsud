@@ -6,18 +6,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Hello World | MoonStone</title>
+  <title>事务的知识点 | MoonStone</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+  <meta name="description" content="事务可以说是我们日常开发绕不开的地方了。不过很惭愧，平时工作中由于业务复杂度没有达到，对事务的使用非常浅，所以对于事务的思考过少。对这块的技术细节一知半解。我想百分之90以上的业务，直接在service方法上加一个@Transactional就可以满足需求了吧。这篇文章，就从事务说开去。 事务ACID，四个属性，自不用说，组成了事务的基本定义。RU，RC，RR，Serializable四种事务隔离">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://yoursite.com/2017/09/10/hello-world/index.html">
+<meta property="og:title" content="事务的知识点">
+<meta property="og:url" content="http://yoursite.com/2018/02/11/spring-transaction/index.html">
 <meta property="og:site_name" content="MoonStone">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
-<meta property="og:updated_time" content="2017-09-10T14:24:59.221Z">
+<meta property="og:description" content="事务可以说是我们日常开发绕不开的地方了。不过很惭愧，平时工作中由于业务复杂度没有达到，对事务的使用非常浅，所以对于事务的思考过少。对这块的技术细节一知半解。我想百分之90以上的业务，直接在service方法上加一个@Transactional就可以满足需求了吧。这篇文章，就从事务说开去。 事务ACID，四个属性，自不用说，组成了事务的基本定义。RU，RC，RR，Serializable四种事务隔离">
+<meta property="og:updated_time" content="2018-05-24T09:28:31.591Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="twitter:title" content="事务的知识点">
+<meta name="twitter:description" content="事务可以说是我们日常开发绕不开的地方了。不过很惭愧，平时工作中由于业务复杂度没有达到，对事务的使用非常浅，所以对于事务的思考过少。对这块的技术细节一知半解。我想百分之90以上的业务，直接在service方法上加一个@Transactional就可以满足需求了吧。这篇文章，就从事务说开去。 事务ACID，四个属性，自不用说，组成了事务的基本定义。RU，RC，RR，Serializable四种事务隔离">
   
     <link rel="alternative" href="/atom.xml" title="MoonStone" type="application/atom+xml">
   
@@ -46,10 +46,10 @@
 <div class="intrude-less">
 	<header id="header" class="inner">
 		<a href="" class="profilepic">
-			<img src="" class="js-avatar">
+			<img src="/img/fish.jpg" class="js-avatar">
 		</a>
 		<hgroup>
-		  <h1 class="header-author"><a href="">Fan Kun</a></h1>
+		  <h1 class="header-author"><a href="">sudden</a></h1>
 		</hgroup>
 		
 
@@ -57,8 +57,6 @@
 			<ul>
 			
 				<li><a href="/">主页</a></li>
-	        
-				<li><a href="/tags/随笔/">随笔</a></li>
 	        
 			</ul>
 		</nav>
@@ -80,13 +78,13 @@
 		<nav class="header-nav">
 			<div class="social">
 				
-					<a class="github" target="_blank" href="#" title="github"><i class="icon-github"></i></a>
+					<a class="github" target="_blank" href="https://github.com/Fsud" title="github"><i class="icon-github"></i></a>
 		        
-					<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
+					<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/sudden-35" title="zhihu"><i class="icon-zhihu"></i></a>
 		        
-					<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
+					<a class="weixin" target="_blank" href="/fk19931105" title="weixin"><i class="icon-weixin"></i></a>
 		        
-					<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
+					<a class="mail" target="_blank" href="/suddenfora[AT]gmail.com" title="mail"><i class="icon-mail"></i></a>
 		        
 			</div>
 		</nav>
@@ -104,15 +102,13 @@
 	<div class="intrude-less">
 		<header id="header" class="inner">
 			<div class="profilepic">
-				<img src="" class="js-avatar">
+				<img src="/img/fish.jpg" class="js-avatar">
 			</div>
 			<hgroup>
-			  <h1 class="header-author js-header-author">Fan Kun</h1>
+			  <h1 class="header-author js-header-author">sudden</h1>
 			</hgroup>
 			
 			
-			
-				
 			
 				
 			
@@ -121,13 +117,13 @@
 			<nav class="header-nav">
 				<div class="social">
 					
-						<a class="github" target="_blank" href="#" title="github"><i class="icon-github"></i></a>
+						<a class="github" target="_blank" href="https://github.com/Fsud" title="github"><i class="icon-github"></i></a>
 			        
-						<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/sudden-35" title="zhihu"><i class="icon-zhihu"></i></a>
 			        
-						<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
+						<a class="weixin" target="_blank" href="/fk19931105" title="weixin"><i class="icon-weixin"></i></a>
 			        
-						<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
+						<a class="mail" target="_blank" href="/suddenfora[AT]gmail.com" title="mail"><i class="icon-mail"></i></a>
 			        
 				</div>
 			</nav>
@@ -136,9 +132,7 @@
 				<ul style="width: 50%">
 				
 				
-					<li style="width: 50%"><a href="/">主页</a></li>
-		        
-					<li style="width: 50%"><a href="/tags/随笔/">随笔</a></li>
+					<li style="width: 100%"><a href="/">主页</a></li>
 		        
 				</ul>
 			</nav>
@@ -153,59 +147,42 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-hello-world" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-spring-transaction" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Hello World
+      事务的知识点
     </h1>
   
 
         
-        <a href="/2017/09/10/hello-world/" class="archive-article-date">
-  	<time datetime="2017-09-10T14:24:59.221Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-10</time>
+        <a href="/2018/02/11/spring-transaction/" class="archive-article-date">
+  	<time datetime="2018-02-10T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-11</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+        <p>事务可以说是我们日常开发绕不开的地方了。不过很惭愧，平时工作中由于业务复杂度没有达到，对事务的使用非常浅，所以对于事务的思考过少。对这块的技术细节一知半解。我想百分之90以上的业务，直接在service方法上加一个@Transactional就可以满足需求了吧。这篇文章，就从事务说开去。</p>
+<h2 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h2><p>ACID，四个属性，自不用说，组成了事务的基本定义。RU，RC，RR，Serializable四种事务隔离(isolation属性)级别。事务会有并发，由此产生了这四种隔离级别，也是老生常谈了。我这边把数据库的隔离级别穿插到了脏读、不可重复读、幻读这三种现象中，看着更直观。</p>
+<ul>
+<li>Read Uncommitted，一个事务可以读取另一个事务尚未提交的更新结果。会造成以下问题：<br>  1.脏读，一个事务对数据进行了更新，尚未提交，另一个事务就读到了结果，如果第一个事务进行了回滚，就造成了脏读<br><em>本质上，就是允许在一个事务在写的同时，另一个事务来进行读</em></li>
+<li>Read Commited。是大部分数据库（MS,Oracle）采用的隔离级别。<br>读事务允许其他事务访问该行，但是写事务将禁止其它事务访问该行<br>可以避免脏读，但是无法避免不可重复读和幻读。<br>2.不可重复读，一笔事务对某个数据进行更新，如果另一事务读取数据，在更新前后读取的数据会不同。<br><em>本质上，比脏读的情况更严格。就是一个事务在读的时候，允许另一个事务写。这样这个事务第二次读的时候，就读到了不一样的值</em></li>
+<li>Repeatable Read (Mysql默认。oracle无此级别)。读事务会禁止写事务。写事务会禁止任何事务。<br>  3.幻读，在查询多笔记录，查询的结果集是不一样的。<em>幻读属于不可重复读的一种</em>。幻读不是一行范围内的，所以要使用范围锁或者表锁。</li>
+<li>Serialiable ，所有事务都必须按顺序执行。并发量下降，极大影响性能。<h2 id="事务与数据库锁"><a href="#事务与数据库锁" class="headerlink" title="事务与数据库锁"></a>事务与数据库锁</h2>这里仅讨论Mysql。注意：Mysql中，MyISAM存储引擎不支持事务。所以事务操作必须使用InnoDB引擎。<br>数据库锁中，<strong>s锁</strong>和<strong>x锁</strong>（读锁和写锁，共享锁和排他锁）是比较常见的两种锁。数据库支持的事务隔离级别，本质上其实是通过各种数据库锁的方式实现的。<br>如：RU不加锁，RC只在读时锁，RR加了读写锁。<br>InnoDB中，本质是索引组织表的。我们知道索引是一棵B树，表的每一行其实就是树的每个节点。数据库锁住的就是索引。这里有一个问题，就是如果我们没有使用索引作为查询条件，那数据库怎么加锁？答案是全表加锁。所以我们要防止这种情况。<br>InnoDB中，还实现了基于mvcc（multi version concurrent control）的乐观锁。mysql在库表加了隐藏的两列，实现了基于事务版本的并发控制。这样，大部分情况下就避免了加锁。这种方式可以防止RR级别的幻读。</li>
+</ul>
+<h2 id="spring是怎样实现事务管理的"><a href="#spring是怎样实现事务管理的" class="headerlink" title="spring是怎样实现事务管理的"></a>spring是怎样实现事务管理的</h2><p>那么问题来了，spring是怎样管理事务的呢？这个问题我想很多人还真没有思考过。秘密就藏在TransactionManager中。<br>首先，我们思考，如果使用jdbc实现事务，最关键的是什么？是在横切方法的前后调用connection事务开始和结束的操作。那么问题就是，我们必须要保证在整个事务中，也就是开启、结束和中间的数据库操作，都是使用的一个connection。怎么实现呢？先剧透一下：使用ThreadLocal。<br>我们先看DatasourceTransactionManager的源码，doBegin()方法。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">@Override</div><div class="line">protected void doBegin(Object transaction, TransactionDefinition definition) &#123;</div><div class="line">    DataSourceTransactionObject txObject = (DataSourceTransactionObject) transaction;</div><div class="line">    Connection con = null;</div><div class="line"></div><div class="line">    if (txObject.getConnectionHolder() == null ||</div><div class="line">            txObject.getConnectionHolder().isSynchronizedWithTransaction()) &#123;</div><div class="line">        Connection newCon = this.dataSource.getConnection();</div><div class="line">        if (logger.isDebugEnabled()) &#123;</div><div class="line">            logger.debug(&quot;Acquired Connection [&quot; + newCon + &quot;] for JDBC transaction&quot;);</div><div class="line">        &#125;</div><div class="line">        txObject.setConnectionHolder(new ConnectionHolder(newCon), true);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    txObject.getConnectionHolder().setSynchronizedWithTransaction(true);</div><div class="line">    con = txObject.getConnectionHolder().getConnection();</div><div class="line"></div><div class="line">    Integer previousIsolationLevel = DataSourceUtils.prepareConnectionForTransaction(con, definition);</div><div class="line">    txObject.setPreviousIsolationLevel(previousIsolationLevel);</div><div class="line"></div><div class="line">    txObject.getConnectionHolder().setTransactionActive(true);</div><div class="line"></div><div class="line">    int timeout = determineTimeout(definition);</div><div class="line">    if (timeout != TransactionDefinition.TIMEOUT_DEFAULT) &#123;</div><div class="line">        txObject.getConnectionHolder().setTimeoutInSeconds(timeout);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    // Bind the session holder to the thread.</div><div class="line">    if (txObject.isNewConnectionHolder()) &#123;</div><div class="line">        TransactionSynchronizationManager.bindResource(getDataSource(), txObject.getConnectionHolder());</div><div class="line">    &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>总体做的事情是，将数据源和Connection的包装类传递给TransactionSynchronizationManager 的 bindResource方法中。<br>bindResource中，就是将connection存放到ThreadLocal的逻辑。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">public static void bindResource(Object key, Object value) throws IllegalStateException &#123;</div><div class="line">        Object actualKey = TransactionSynchronizationUtils.unwrapResourceIfNecessary(key);</div><div class="line">        Assert.notNull(value, &quot;Value must not be null&quot;);</div><div class="line">        Map&lt;Object, Object&gt; map = resources.get();</div><div class="line">        // set ThreadLocal Map if none found</div><div class="line">        if (map == null) &#123;</div><div class="line">            map = new HashMap&lt;Object, Object&gt;();</div><div class="line">            resources.set(map);</div><div class="line">        &#125;</div><div class="line">        Object oldValue = map.put(actualKey, value);</div><div class="line">        </div><div class="line">        ...</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p>不过看到spring事务管理中，各种类结构还是比较复杂的。后面有机会会单独梳理一下。</p>
+<hr>
+<p>参考资料：<br>《高性能Mysql》<br><a href="https://tech.meituan.com/innodb-lock.html" target="_blank" rel="external">Innodb中的事务隔离级别和锁的关系</a></p>
 
       
 
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -261,7 +238,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2017/09/10/hello-world/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2018/02/11/spring-transaction/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -275,15 +252,11 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/09/10/hello-hexo/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          hello hexo
-        
-      </div>
-    </a>
   
+    <a href="/2017/11/02/factoryPartten/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">怎样选择工厂模式</div>
+      <i class="icon-circle-right"></i>
+    </a>
   
 </nav>
 
@@ -324,7 +297,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2017 Fan Kun
+    		&copy; 2018 sudden
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -455,27 +428,11 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
         <ul class="search-ul">
           
             <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接1</a>
+              <a href="http://www.hollischuang.com/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>HollisChuang</a>
             </li>
           
             <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接2</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接3</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接4</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接5</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接6</a>
+              <a href="http://www.ruanyifeng.com" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>阮一峰的个人网站</a>
             </li>
           
         </ul>
@@ -486,7 +443,7 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
     
     	<section class="tools-section tools-section-me" q-show="aboutme">
   	  	
-  	  		<div class="aboutme-wrap" id="js-aboutme">很惭愧&lt;br&gt;&lt;br&gt;只做了一点微小的工作&lt;br&gt;谢谢大家</div>
+  	  		<div class="aboutme-wrap" id="js-aboutme">微博控，知乎控，信息焦虑症&lt;br&gt;&lt;br&gt;不做拧螺丝的人</div>
   	  	
     	</section>
     
