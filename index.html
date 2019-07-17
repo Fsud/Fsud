@@ -145,6 +145,136 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-dubbo-spi" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/02/dubbo-spi/">dubbo中的SPI</a>
+    </h1>
+  
+
+        
+        <a href="/2018/12/02/dubbo-spi/" class="archive-article-date">
+  	<time datetime="2018-12-01T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-02</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Dubbo相信是每一个开发人员最熟悉的RPC工具了。本文关注于Dubbo源码中很重要的一个技术点——SPI，它原本是JDK中的一项技术，Dubbo增强了SPI的能力，并大范围运用在了Dubbo中。</p>
+<h2 id="JDK中的SPI"><a href="#JDK中的SPI" class="headerlink" title="JDK中的SPI"></a>JDK中的SPI</h2><p>SPI的全程是Service Provider Interface，是JDK中提供的一种将服务接口与实现分离的机制。它的好处是极大提升了服务的扩展性，实现了解耦的目的。<br>SPI中的服务指的是已知的接口或抽象类，服务提供方就是对这个接口或抽象类的实现类。服务提供方类可以在我们自己的项目中编写，也可以从jar包中依赖进来。<br>那么如何标示服务提供方呢？通过在META-INF/services目录下存放一个配置文件。文件的名称要是服务接口的全限定名。在文件中，每行指定一个实现类的全限定名。<br><img src="/img/dubbo-spi01.png" alt=""><br>播放器（服务类）<br>public interface PlayerService {<br>    void play();<br>}</p>
+<p>音乐播放器（服务提供方）<br>public class MusicPlayerServiceImpl implements PlayerService {</p>
+<pre><code>@Override
+public void play() {
+    System.out.println(&quot;music play...&quot;);jieguo
+}
+</code></pre><p>}</p>
+<p>视频播放器（服务提供方）<br>public class VideoPlayerServiceImpl implements PlayerService {</p>
+<pre><code>@Override
+public void play() {
+    System.out.println(&quot;play videokuozhan...&quot;);
+}
+</code></pre><p>}</p>
+<p>META-INF/services配置文件</p>
+<p>#音乐播放器（服务提供方）<br>com.f.helloSPI.impl.MusicPlayerServiceImpl</p>
+<p>#视频播放器（服务提供方）<br>com.f.helloSPI.impl.VideoPlayerServiceImpl</p>
+<p>代码入口<br>public class Main {<br>    public static void main(String[] args) {<br>        ServiceLoader<playerservice> playerServicesLoader = ServiceLoader.load(PlayerService.class);<br>        Iterator<playerservice> iterator = playerServicesLoader.iterator();<br>        while(iterator.hasNext()){<br>            PlayerService next = iterator.next();<br>            next.play();<br>        }<br>    }<br>}</playerservice></playerservice></p>
+<p>执行结果<br>music play…<br>play video…</p>
+<p>由此可见，通过SPI机制，服务实现类和服务可以实现解耦。并且我们可以随时通过引入和更换第三方依赖的方式，获得各种服务，而不侵入代码。<br>事实上，在JDK的JDBC、Apache的common-logging日志框架中，都使用到了SPI。下文中讲到的DUbbo，更是对原生SPI进行了扩展。</p>
+<h2 id="Dubbo中的SPI"><a href="#Dubbo中的SPI" class="headerlink" title="Dubbo中的SPI"></a>Dubbo中的SPI</h2><p>Dubbo对JDK标准SPI的扩展，主要在两点：避免一次性实例化所有扩展点，造成资源浪费，和增加了对扩展点的IOC和AOP的支持。<br>源码在dubbo-common模块下的extension目录。<br><img src="/img/dubbo-spi02.png" alt=""><br>使用Dubbo的SPI和JDK的SPI也很类似。只需在META-INF/dubbo/{接口全限定名}这种配置文件，在文件中配置<br>{配置名}=com.alibaba.xxx.XxxServiceImpl<br>即可。<br>我们同样以上文的播放器为例。<br>服务接口：<br>@SPI(“music”)<br>public interface PlayerService {<br>    void play();<br>}</p>
+<p>可以看到仅仅是多了一个@SPI注解。注解的值是默认选择的SPI实现。即配置文件中配置的配置名。<br>配置文件：<br>music=org.apache.dubbo.common.extension.extfk.impl.MusicPlayerServiceImpl</p>
+<p>主类：<br>public class Main {<br>    @Test<br>    public void getDefault() {<br>        PlayerService defaultPlayer =  ExtensionLoader.getExtensionLoader(PlayerService.class).getDefaultExtension();<br>        defaultPlayer.play();<br>    }<br>}</p>
+<h2 id="扩展点特性"><a href="#扩展点特性" class="headerlink" title="扩展点特性"></a>扩展点特性</h2><ol>
+<li>自动包装<br>自动包装可以视为给实现类增加了AOP的能力。<br>我们通过自己实现一个包含拷贝构造函数的实现类，在实现类中调用持有的默认实现类。即可在实现类的方法行为前后增加自定义的行为。<br>下面看一个例子。如果我们向在播放媒体文件前播放文件的名字，则只需创建这样一个Wapper类。<br>public class MusicNameWapper implements PlayerService {<br> PlayerService playerService;<br> public MusicNameWapper(PlayerService playerService){<pre><code>this.playerService = playerService;
+</code></pre> }<br> @Override<br> public void play() {<pre><code>System.out.println(&quot;the name is xxx&quot;);
+playerService.play();
+</code></pre> }<br>}</li>
+</ol>
+<p>相应的，在配置文件中配置：<br>music=org.apache.dubbo.common.extension.extfk.impl.MusicPlayerServiceImpl<br>wapper=org.apache.dubbo.common.extension.extfk.impl.MusicNameWapper</p>
+<p>运行结果：<br>the name is xxx<br>play music…</p>
+<p>就这样，非常简单，就实现了对SPI的包装</p>
+<ol>
+<li><p>自动装配<br>扩展点之间同样会出现依赖。自动装配帮我们实现了扩展点的自动注入。<br>public class MusicPlayerServiceImpl implements PlayerService {</p>
+<p> FileService fileService;</p>
+<p> public void setFileService(FileService fileService) {</p>
+<pre><code>this.fileService = fileService;
+</code></pre><p> }</p>
+<p> @Override<br> public void play() {</p>
+<pre><code>System.out.println(&quot;play music...&quot;);
+fileService.fileType();
+</code></pre><p> }<br>}</p>
+</li>
+</ol>
+<p>如实例所示，我们依赖了一个文件服务FileService，来打印播放的文件类型。<br>现在有一个问题，dubbo怎么知道应该选择哪一个FileService的实现类来注入呢？这就要靠自适应来配置了。</p>
+<ol>
+<li><p>自适应<br>Dubbo自适应是运行时的动态选择。注入的依赖服务不是服务的接口，而是一个Adaptive实例，直到扩展点的方法调用才决定调用哪一个扩展点。这里需要借助Dubbo中很重要的一个类：URL。在Dubbo中，所有的配置都可以通过URL传递，可以说十分强大。扩展点也是如此。<br>现在创建两个FileService扩展服务Mp3FileService和WavFileService。<br>@SPI(“mp3”)<br>public interface FileService {</p>
+<p> @Adaptive(“fileOfMusic”)<br> void fileType(URL url);<br>}</p>
+</li>
+</ol>
+<p>在filetype方法上加上@Adaptive注解，value为一个key。这样，我们就可以通过在URL中配置这个key(fileOfMusic) 对应的value为配置文件的中某一项的服务名，从而实现自动装配了。<br>@Override<br>public void play() {<br>    System.out.println(“play music…”);<br>    Map map = new HashMap();<br>    map.put(“fileOfMusic”,”mp3”);<br>    URL url = new URL(“”,””,0,map);<br>    fileService.fileType(url);<br>}</p>
+<p>配置文件<br>mp3=org.apache.dubbo.common.extension.extfk.impl.Mp3FileServiceImpl</p>
+<p>运行结果<br>play music…<br>file type:Mp3</p>
+<ol>
+<li>自动激活<br>扩展点自动激活是一种简化配置的方式。当我们需要加载多个扩展点时，可以用@Activate注解修饰多个实现类，@Activate注解上还支持配置groups，按照分组进行激活，或value，按照URL中是否存在对应key进行激活。</li>
+</ol>
+<h2 id="结尾"><a href="#结尾" class="headerlink" title="结尾"></a>结尾</h2><p>Dubbo的扩展点机制在Dubbo中有着大范围的运用。<br><img src="/img/dubbo-spi03.jpeg" alt=""><br>上图是Dubbo的整体设计图，可以看到从上到下分为10层。右边的黑色箭头代表了各层之间的依赖关系。其中除了Service和Config，其他层均通过SPI进行依赖。各层之间单项依赖，可以很方便的剥离，方便服用。同时兼具了极大的灵活性和可扩展性。<br>本文不涉及具体源码的分析，如果有兴趣，可以从dubbo源码的ExtensionLoader作为入口，配合源码中包含的丰富的单元测试，具体研究实现原理。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">dubbo</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/12/02/dubbo-spi/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-spring-transaction" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -469,7 +599,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2018 sudden
+    		&copy; 2019 sudden
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -550,6 +680,10 @@ getOwnMetadataKeys:function(t){return o(i(t),arguments.length<2?void 0:u(argumen
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">dubbo</a>
+              </li>
             
             <div class="clearfix"></div>
           </ul>
