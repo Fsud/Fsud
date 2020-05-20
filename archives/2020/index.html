@@ -6,18 +6,14 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>事务的知识点 | MoonStone</title>
+  <title>Archives: 2020 | MoonStone</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="事务可以说是我们日常开发绕不开的地方了。不过很惭愧，平时工作中由于业务复杂度没有达到，对事务的使用非常浅，所以对于事务的思考过少。对这块的技术细节一知半解。我想百分之90以上的业务，直接在service方法上加一个@Transactional就可以满足需求了吧。这篇文章，就从事务说开去。 事务ACID，四个属性，自不用说，组成了事务的基本定义。RU，RC，RR，Serializable四种事务隔离">
-<meta property="og:type" content="article">
-<meta property="og:title" content="事务的知识点">
-<meta property="og:url" content="http://yoursite.com/2018/02/11/spring-transaction/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="MoonStone">
+<meta property="og:url" content="http://yoursite.com/archives/2020/index.html">
 <meta property="og:site_name" content="MoonStone">
-<meta property="og:description" content="事务可以说是我们日常开发绕不开的地方了。不过很惭愧，平时工作中由于业务复杂度没有达到，对事务的使用非常浅，所以对于事务的思考过少。对这块的技术细节一知半解。我想百分之90以上的业务，直接在service方法上加一个@Transactional就可以满足需求了吧。这篇文章，就从事务说开去。 事务ACID，四个属性，自不用说，组成了事务的基本定义。RU，RC，RR，Serializable四种事务隔离">
-<meta property="og:updated_time" content="2018-05-24T11:31:37.354Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="事务的知识点">
-<meta name="twitter:description" content="事务可以说是我们日常开发绕不开的地方了。不过很惭愧，平时工作中由于业务复杂度没有达到，对事务的使用非常浅，所以对于事务的思考过少。对这块的技术细节一知半解。我想百分之90以上的业务，直接在service方法上加一个@Transactional就可以满足需求了吧。这篇文章，就从事务说开去。 事务ACID，四个属性，自不用说，组成了事务的基本定义。RU，RC，RR，Serializable四种事务隔离">
+<meta name="twitter:title" content="MoonStone">
   
     <link rel="alternative" href="/atom.xml" title="MoonStone" type="application/atom+xml">
   
@@ -147,158 +143,60 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-spring-transaction" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      事务的知识点
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2020" class="archive-year">2020</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2020/01/02/blockchain/" class="archive-article-date">
+  	<time datetime="2020-01-01T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-02</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2020/01/02/blockchain/">《区块链核心技术与应用》笔记</a>
     </h1>
   
 
-        
-        <a href="/2018/02/11/spring-transaction/" class="archive-article-date">
-  	<time datetime="2018-02-10T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>事务可以说是我们日常开发绕不开的地方了。不过很惭愧，平时工作中由于业务复杂度没有达到，对事务的使用非常浅，所以对于事务的思考过少。对这块的技术细节一知半解。我想百分之90以上的业务，直接在service方法上加一个@Transactional就可以满足需求了吧。这篇文章，就从事务说开去。</p>
-<h2 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h2><p>ACID，四个属性，自不用说，组成了事务的基本定义。RU，RC，RR，Serializable四种事务隔离(isolation属性)级别。事务会有并发，由此产生了这四种隔离级别，也是老生常谈了。我这边把数据库的隔离级别穿插到了脏读、不可重复读、幻读这三种现象中，看着更直观。</p>
-<ul>
-<li>Read Uncommitted，一个事务可以读取另一个事务尚未提交的更新结果。会造成以下问题：<br>  1.脏读，一个事务对数据进行了更新，尚未提交，另一个事务就读到了结果，如果第一个事务进行了回滚，就造成了脏读<br><em>本质上，就是允许在一个事务在写的同时，另一个事务来进行读</em></li>
-<li>Read Commited。是大部分数据库（MS,Oracle）采用的隔离级别。<br>读事务允许其他事务访问该行，但是写事务将禁止其它事务访问该行<br>可以避免脏读，但是无法避免不可重复读和幻读。<br>2.不可重复读，一笔事务对某个数据进行更新，如果另一事务读取数据，在更新前后读取的数据会不同。<br><em>本质上，比脏读的情况更严格。就是一个事务在读的时候，允许另一个事务写。这样这个事务第二次读的时候，就读到了不一样的值</em></li>
-<li>Repeatable Read (Mysql默认。oracle无此级别)。读事务会禁止写事务。写事务会禁止任何事务。<br>  3.幻读，在查询多笔记录，查询的结果集是不一样的。<em>幻读属于不可重复读的一种</em>。幻读不是一行范围内的，所以要使用范围锁或者表锁。</li>
-<li>Serialiable ，所有事务都必须按顺序执行。并发量下降，极大影响性能。<h2 id="事务与数据库锁"><a href="#事务与数据库锁" class="headerlink" title="事务与数据库锁"></a>事务与数据库锁</h2>这里仅讨论Mysql。注意：Mysql中，MyISAM存储引擎不支持事务。所以事务操作必须使用InnoDB引擎。<br>数据库锁中，<strong>s锁</strong>和<strong>x锁</strong>（读锁和写锁，共享锁和排他锁）是比较常见的两种锁。数据库支持的事务隔离级别，本质上其实是通过各种数据库锁的方式实现的。<br>如：RU不加锁，RC只在读时加锁，RR加了读写锁。</li>
-<li><strong>mvcc</strong><br>InnoDB中，实现了基于<strong>mvcc</strong>（Multi-Version Concurrency Control）的乐观锁。Mysql在库表加了隐藏的两列，一列是记录创建版本，一列是记录删除版本。通过一系列规则实现了基于事务版本号<br>的并发控制。这样，大部分情况下就避免了加锁。</li>
-<li><strong>next-key间隙锁</strong><br>Mvcc通过不加锁，解决了幻读等问题。但是，读取的数据是老数据，并不是最新的数据。如果我们对数据实时性要求高，就要使用next-key锁。next-key其实就是行锁+间隙锁。<br>InnoDB中，本质是索引组织表的。我们知道索引是一棵B+树，表的每一行其实就是树的每个节点。数据库锁住的就是索引。这里有一个问题，就是如果我们没有使用索引作为查询条件，那数据库怎么加锁？答案是全表加锁。所以我们要防止这种情况。<br>间隙锁就是锁住了b+树上的行与区间。从而避免了幻读。</li>
-</ul>
-<h2 id="spring是怎样实现事务管理的"><a href="#spring是怎样实现事务管理的" class="headerlink" title="spring是怎样实现事务管理的"></a>spring是怎样实现事务管理的</h2><p>那么问题来了，spring是怎样管理事务的呢？这个问题我想很多人还真没有思考过。秘密就藏在TransactionManager中。<br>首先，我们思考，如果使用jdbc实现事务，最关键的是什么？是在横切方法的前后调用connection事务开始和结束的操作。那么问题就是，我们必须要保证在整个事务中，也就是开启、结束和中间的数据库操作，都是使用的一个connection。怎么实现呢？先剧透一下：使用ThreadLocal。<br>我们先看DatasourceTransactionManager的源码，doBegin()方法。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">@Override</div><div class="line">protected void doBegin(Object transaction, TransactionDefinition definition) &#123;</div><div class="line">    DataSourceTransactionObject txObject = (DataSourceTransactionObject) transaction;</div><div class="line">    Connection con = null;</div><div class="line"></div><div class="line">    if (txObject.getConnectionHolder() == null ||</div><div class="line">            txObject.getConnectionHolder().isSynchronizedWithTransaction()) &#123;</div><div class="line">        Connection newCon = this.dataSource.getConnection();</div><div class="line">        if (logger.isDebugEnabled()) &#123;</div><div class="line">            logger.debug(&quot;Acquired Connection [&quot; + newCon + &quot;] for JDBC transaction&quot;);</div><div class="line">        &#125;</div><div class="line">        txObject.setConnectionHolder(new ConnectionHolder(newCon), true);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    txObject.getConnectionHolder().setSynchronizedWithTransaction(true);</div><div class="line">    con = txObject.getConnectionHolder().getConnection();</div><div class="line"></div><div class="line">    Integer previousIsolationLevel = DataSourceUtils.prepareConnectionForTransaction(con, definition);</div><div class="line">    txObject.setPreviousIsolationLevel(previousIsolationLevel);</div><div class="line"></div><div class="line">    txObject.getConnectionHolder().setTransactionActive(true);</div><div class="line"></div><div class="line">    int timeout = determineTimeout(definition);</div><div class="line">    if (timeout != TransactionDefinition.TIMEOUT_DEFAULT) &#123;</div><div class="line">        txObject.getConnectionHolder().setTimeoutInSeconds(timeout);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    // Bind the session holder to the thread.</div><div class="line">    if (txObject.isNewConnectionHolder()) &#123;</div><div class="line">        TransactionSynchronizationManager.bindResource(getDataSource(), txObject.getConnectionHolder());</div><div class="line">    &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>总体做的事情是，将数据源和Connection的包装类传递给TransactionSynchronizationManager 的 bindResource方法中。<br>bindResource中，就是将connection存放到ThreadLocal的逻辑。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">public static void bindResource(Object key, Object value) throws IllegalStateException &#123;</div><div class="line">        Object actualKey = TransactionSynchronizationUtils.unwrapResourceIfNecessary(key);</div><div class="line">        Assert.notNull(value, &quot;Value must not be null&quot;);</div><div class="line">        Map&lt;Object, Object&gt; map = resources.get();</div><div class="line">        // set ThreadLocal Map if none found</div><div class="line">        if (map == null) &#123;</div><div class="line">            map = new HashMap&lt;Object, Object&gt;();</div><div class="line">            resources.set(map);</div><div class="line">        &#125;</div><div class="line">        Object oldValue = map.put(actualKey, value);</div><div class="line">        </div><div class="line">        ...</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
-<p>不过看到spring事务管理中，各种类结构还是比较复杂的。后面有机会会单独梳理一下。</p>
-<hr>
-<p>参考资料：<br>《高性能Mysql》<br><a href="https://tech.meituan.com/innodb-lock.html" target="_blank" rel="external">Innodb中的事务隔离级别和锁的关系</a></p>
+        <div class="article-info info-on-right">
+          
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">block chain</a>
+        		</li>
+      		
+		</ul>
+	</div>
 
-      
+          
 
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://yoursite.com/2018/02/11/spring-transaction/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2018/12/02/dubbo-spi/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          dubbo中的SPI
-        
-      </div>
-    </a>
   
   
-    <a href="/2017/11/02/factoryPartten/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">怎样选择工厂模式</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-  
+    </div></section>
   
 
-  
-
-  
-
-  
+    
 
 
           </div>
@@ -321,8 +219,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
-		isArchive: false,
+		isPost: false,
+		isArchive: true,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
